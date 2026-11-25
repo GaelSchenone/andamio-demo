@@ -1,0 +1,50 @@
+.trabajos-seleccion {
+  z-index: var(--z-sticky);
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-4);
+  border: 2px solid var(--accent);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.trabajos-seleccion-cabecera {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.trabajos-seleccion-cabecera div {
+  display: flex;
+  flex-direction: column;
+}
+
+.trabajos-seleccion-cabecera span,
+.trabajos-seleccion-ayuda {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.trabajos-seleccion-resumen {
+  font-weight: 700;
+}
+
+.trabajos-seleccion-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+/* En pantallas chicas va abajo del calendario y queda a la vista aunque se scrollee. */
+.trabajos-pagina > .trabajos-seleccion {
+  position: sticky;
+  bottom: var(--s-3);
+  margin-top: var(--s-4);
+  box-shadow: var(--shadow-modal);
+}
+
+.shell--compacta .trabajos-pagina > .trabajos-seleccion {
+  bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + var(--s-2));
+}

@@ -1,0 +1,393 @@
+/*
+ * La orbe y el chat son el mismo objeto: cerrado, un disco en la esquina; al abrir, ese disco crece primero
+ * hacia la izquierda (se vuelve una píldora) y enseguida en vertical hasta ser la caja, con un resorte
+ * apenas perceptible al final. La orbe viaja al encabezado y el contenido se revela cuando la caja ya
+ * casi terminó de abrirse. Al cerrar hace el camino inverso: primero baja y después se recoge a la derecha.
+ */
+.agente {
+  /* Resorte suave: pasa de largo ~2 % y se acomoda. */
+  --resorte: linear(0, 0.05 5%, 0.22 12%, 0.5 20%, 0.76 29%, 0.92 38%, 1.01 48%, 1.018 56%, 1.012 66%, 1.004 78%, 1);
+  --curva: cubic-bezier(0.32, 0.72, 0, 1);
+  --horizontal: 440ms; /* lo que tarda en abrirse hacia la izquierda */
+  --vertical: 500ms; /* lo que tarda en crecer en vertical, arrancando cuando el ancho va por la mitad */
+  --espera-vertical: 140ms;
+  --orbe-tamano: 56px;
+  --orbe-en-el-encabezado: 44px; /* tamaño de la orbe cuando el chat está abierto */
+  --orbe-r: 0px; /* cuánto se separa la orbe del borde derecho / de abajo de la caja */
+  --orbe-b: 0px;
+  --agente-ancho: min(26rem, calc(100vw - var(--s-5)));
+  --agente-alto: min(36rem, calc(100dvh - 7rem));
+  position: fixed;
+  right: var(--s-4);
+  bottom: var(--agente-base, var(--s-4));
+  z-index: var(--z-modal);
+  width: var(--agente-ancho);
+  height: var(--agente-alto);
+  pointer-events: none;
+}
+
+.agente-caja {
+  position: absolute;
+  right: var(--orbe-r);
+  bottom: var(--orbe-b);
+  width: var(--orbe-tamano);
+  height: var(--orbe-tamano);
+  border-radius: calc(var(--orbe-tamano) / 2);
+  background: var(--orbe-fondo);
+  overflow: hidden;
+  /* Cerrando: primero se achica en vertical y después se recoge hacia la derecha. */
+  transition:
+    height var(--vertical) var(--resorte),
+    bottom var(--vertical) var(--resorte),
+    width var(--horizontal) var(--resorte) var(--espera-vertical),
+    right var(--horizontal) var(--resorte) var(--espera-vertical),
+    border-radius var(--horizontal) var(--resorte) var(--espera-vertical),
+    background-color 420ms var(--curva),
+    box-shadow 420ms var(--curva);
+}
+
+.agente[data-abierto='true'] .agente-caja {
+  right: 0;
+  bottom: 0;
+  width: var(--agente-ancho);
+  height: var(--agente-alto);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  /* El borde fino es una sombra hacia adentro (no ocupa lugar) y la sombra de afuera lo despega de la página. */
+  box-shadow: inset 0 0 0 1px var(--border), var(--shadow-modal);
+  pointer-events: auto;
+  /* Abriendo: primero hacia la izquierda y, ya empezado eso, en vertical. */
+  transition:
+    width var(--horizontal) var(--resorte),
+    right var(--horizontal) var(--resorte),
+    border-radius var(--horizontal) var(--resorte),
+    height var(--vertical) var(--resorte) var(--espera-vertical),
+    bottom var(--vertical) var(--resorte) var(--espera-vertical),
+    background-color 420ms var(--curva),
+    box-shadow 420ms var(--curva);
+}
+
+/* El contenido está anclado a la esquina de abajo a la derecha, con el tamaño final: la caja, al crecer, lo va revelando. */
+.agente-panel {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  width: var(--agente-ancho);
+  height: var(--agente-alto);
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 140ms var(--curva),
+    transform 140ms var(--curva);
+}
+
+.agente[data-abierto='true'] .agente-panel {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 320ms var(--curva) 360ms,
+    transform 460ms var(--curva) 360ms;
+}
+
+.agente-orbe {
+  position: absolute;
+  top: calc(100% - var(--orbe-tamano) - var(--orbe-b));
+  left: calc(100% - var(--orbe-tamano) - var(--orbe-r));
+  z-index: 1;
+  display: grid;
+  width: var(--orbe-tamano);
+  height: var(--orbe-tamano);
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  box-shadow: 0 0 0 1px var(--border-strong), var(--shadow-modal);
+  cursor: pointer;
+  pointer-events: auto;
+  transform-origin: top left;
+  /* Cerrada, vuelve: baja con el movimiento vertical y se recoge con el horizontal. */
+  transition:
+    top var(--vertical) var(--resorte),
+    left var(--horizontal) var(--resorte) var(--espera-vertical),
+    transform var(--horizontal) var(--resorte) var(--espera-vertical),
+    box-shadow 420ms var(--curva);
+}
+
+/* Abierto, la orbe va al encabezado y se achica de 56 a 44 px, centrada con el título. */
+.agente[data-abierto='true'] .agente-orbe {
+  top: calc(var(--s-3) - 0.5px); /* el encabezado mide 1 px menos por su línea de abajo */
+  left: var(--s-4);
+  box-shadow: 0 0 0 1px transparent, 0 0 0 0 transparent;
+  transform: scale(calc(44 / 56));
+  /* Abriendo: se desplaza a la izquierda con el ancho y sube con el alto. */
+  transition:
+    left var(--horizontal) var(--resorte),
+    transform var(--horizontal) var(--resorte),
+    top var(--vertical) var(--resorte) var(--espera-vertical),
+    box-shadow 420ms var(--curva);
+}
+
+/* En celular el chat es una hoja que sube desde abajo; la orbe vive arriba de la barra de navegación. */
+@media (max-width: 719px) {
+  .agente {
+    --orbe-r: var(--s-4);
+    --orbe-b: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + var(--s-3));
+    --agente-ancho: 100vw;
+    inset: auto 0 0 0;
+    width: auto;
+  }
+
+  .agente-caja {
+    border-radius: calc(var(--orbe-tamano) / 2);
+  }
+
+  .agente[data-abierto='true'] .agente-caja {
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+  }
+
+  .agente-panel {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* No tapa los botones fijos de abajo: el resumen del editor sube la orbe y elegir días la esconde. */
+body:has(.editor-resumen--fijo) .agente {
+  --agente-base: calc(var(--s-4) + 4.5rem);
+}
+
+@media (max-width: 719px) {
+  body:has(.editor-resumen--fijo) .agente {
+    --orbe-b: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 5rem);
+  }
+}
+
+body:has(.trabajos-seleccion) .agente {
+  display: none;
+}
+
+/* Con "reducir movimiento" abre y cierra sin animación ni destello. */
+@media (prefers-reduced-motion: reduce) {
+  .agente,
+  .agente * {
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .agente-panel {
+    transform: none;
+  }
+}
+
+.agente-cabecera {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  /* A la izquierda queda el lugar de la orbe, que se mueve hasta acá al abrir. */
+  min-height: calc(var(--orbe-en-el-encabezado) + 2 * var(--s-3));
+  padding: var(--s-3) var(--s-4) var(--s-3) calc(var(--s-4) + var(--orbe-en-el-encabezado) + var(--s-3));
+  border-bottom: 1px solid var(--border);
+}
+
+.agente-cabecera div {
+  min-width: 0;
+  flex: 1;
+}
+
+.agente-cabecera h2 {
+  font-size: var(--fs-lg);
+}
+
+.agente-mensajes {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  overflow-y: auto;
+}
+
+.agente-inicio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.agente-inicio ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: var(--s-2);
+  list-style: none;
+}
+
+.agente-inicio button {
+  width: 100%;
+  min-height: var(--hit);
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  background: transparent;
+  text-align: left;
+}
+
+.agente-inicio button:hover {
+  background: var(--surface-2);
+}
+
+.agente-mensaje {
+  display: flex;
+  max-width: 88%;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border-radius: var(--r-md);
+  overflow-wrap: anywhere;
+}
+
+.agente-mensaje p {
+  margin: 0;
+}
+
+.agente-mensaje ul {
+  margin: 0;
+  padding-left: var(--s-5);
+}
+
+.agente-mensaje--usuario {
+  align-self: flex-end;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.agente-mensaje--agente {
+  align-self: flex-start;
+  background: var(--surface-2);
+}
+
+.agente-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+
+.agente-aviso {
+  margin: 0 var(--s-4);
+}
+
+.agente-entrada {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  border-top: 1px solid var(--border);
+}
+
+.agente-entrada textarea {
+  min-height: var(--hit);
+  max-height: 7rem;
+  flex: 1;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  resize: none;
+}
+
+.agente-tipeando {
+  cursor: pointer;
+}
+
+.agente-acciones {
+  animation: agente-aparece 320ms var(--ease) both;
+}
+
+@keyframes agente-aparece {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agente-acciones {
+    animation: none;
+  }
+}
+
+/* Mientras piensa: un puntito que late y una frase que brilla (un destello de izquierda a derecha). */
+.agente-pensando {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--fs-sm);
+}
+
+.agente-pensando-punto {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: var(--r-pill);
+  background: var(--text);
+  animation: agente-late 1.1s ease-in-out infinite;
+}
+
+.agente-pensando-frase {
+  background: linear-gradient(90deg, var(--text-3) 0%, var(--text-3) 35%, var(--text) 50%, var(--text-3) 65%, var(--text-3) 100%);
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation:
+    agente-aparece 320ms var(--ease) both,
+    agente-brillo 1.9s linear infinite;
+}
+
+.agente-pensando-tiempo {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes agente-late {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes agente-brillo {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agente-pensando-punto,
+  .agente-pensando-frase {
+    animation: none;
+  }
+
+  .agente-pensando-frase {
+    background: none;
+    color: var(--text-2);
+  }
+}
+
+.agente-simulado {
+  margin: 0;
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+}

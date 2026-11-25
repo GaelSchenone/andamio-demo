@@ -1,0 +1,19 @@
+# Fuera de la imagen: secretos, datos, cosas que se generan adentro y lo que solo sirve para desarrollar.
+**/.env
+**/.env.*
+**/*.db
+**/.venv
+**/node_modules
+**/dist
+**/__pycache__
+**/*.pyc
+**/.ruff_cache
+**/.pytest_cache
+.git
+.githooks
+.claude
+backend/tests
+docs
+*.md
+Dockerfile
+.dockerignore

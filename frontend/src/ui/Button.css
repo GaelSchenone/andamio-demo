@@ -1,0 +1,106 @@
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: var(--hit);
+  padding: 0 var(--s-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background var(--t-fast) var(--ease),
+    border-color var(--t-fast) var(--ease);
+}
+
+/* Con puntero fino (mouse) los controles pueden ser más compactos que con el dedo. */
+@media (pointer: fine) {
+  .ui-btn {
+    min-height: var(--hit-fine);
+  }
+  .ui-btn--md {
+    min-height: 36px;
+  }
+}
+
+.ui-btn:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.ui-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* La cinta de obra: texto oscuro sobre amarillo, con borde oscuro (el amarillo solo no se distingue del blanco). */
+.ui-btn--primario {
+  background: var(--accent);
+  border-color: var(--on-accent);
+  color: var(--on-accent);
+}
+
+.ui-btn--primario:hover:not(:disabled) {
+  background: var(--accent);
+  filter: brightness(0.94);
+}
+
+.ui-btn--fantasma {
+  border-color: transparent;
+  background: transparent;
+}
+
+.ui-btn--peligro {
+  border-color: var(--bad);
+  color: var(--bad);
+}
+
+.ui-btn--peligro:hover:not(:disabled) {
+  background: var(--bad-bg);
+}
+
+.ui-btn--sm {
+  min-height: var(--hit-fine);
+  padding: 0 var(--s-3);
+}
+
+.ui-btn--completo {
+  width: 100%;
+}
+
+.ui-spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ui-spinner {
+    animation: ui-girar 700ms linear infinite;
+  }
+}
+
+@keyframes ui-girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Acción destructiva ya confirmada: relleno rojo con el texto del fondo (más de 6:1 en ambos temas). */
+.ui-btn--peligro-solido {
+  border-color: var(--bad);
+  background: var(--bad);
+  color: var(--bg);
+}
+
+.ui-btn--peligro-solido:hover:not(:disabled) {
+  background: var(--bad);
+  filter: brightness(0.92);
+}

@@ -1,0 +1,13 @@
+# Sistema operativo / editores
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Por las dudas, nunca subir variables de entorno ni bases de datos locales
+.env
+*.db
+
+# PDFs de presupuestos de clientes reales: nunca al repo (datos personales, Ley 25.326).
+*.pdf

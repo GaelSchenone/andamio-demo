@@ -1,0 +1,132 @@
+.barra-lateral {
+  position: sticky;
+  top: 0;
+  display: flex;
+  height: 100dvh;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-3);
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  overflow-y: auto;
+}
+
+.barra-lateral--completa {
+  width: var(--sidebar-w);
+}
+
+.barra-lateral--riel {
+  width: var(--rail-w);
+  align-items: center;
+  padding-inline: var(--s-2);
+}
+
+.barra-lateral-marca {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  /* El mismo margen izquierdo que el de los íconos del menú: logo y íconos quedan en una línea. */
+  padding: var(--s-2) var(--s-3) var(--s-3);
+}
+
+.barra-lateral-nombre {
+  font-family: var(--font-body);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.barra-lateral--riel .barra-lateral-marca {
+  padding-inline: 0;
+}
+
+.barra-lateral-grupo ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: var(--s-1);
+  list-style: none;
+}
+
+.barra-lateral-titulo {
+  padding: 0 var(--s-3) var(--s-2);
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.barra-lateral-separador {
+  width: 2rem;
+  margin: 0 0 var(--s-3);
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+.barra-lateral-enlace {
+  position: relative;
+  display: flex;
+  min-height: var(--hit);
+  align-items: center;
+  gap: var(--s-3);
+  padding: 0 var(--s-3);
+  border-radius: var(--r-md);
+  color: var(--text-2);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background var(--t-fast) var(--ease);
+}
+
+.barra-lateral--riel .barra-lateral-enlace {
+  width: var(--hit);
+  justify-content: center;
+  padding: 0;
+}
+
+.barra-lateral-enlace:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Sección activa: fondo + peso + marca amarilla. El amarillo solo nunca alcanza (1.6:1 sobre blanco). */
+.barra-lateral-enlace[aria-current='page'] {
+  background: var(--surface-2);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.barra-lateral-enlace[aria-current='page']::before {
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0;
+  width: 4px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  content: '';
+}
+
+/* Tooltip del riel: aparece al apuntar o al enfocar con teclado. */
+.barra-lateral--riel .barra-lateral-enlace::after {
+  position: fixed;
+  left: calc(var(--rail-w) + var(--s-2));
+  padding: var(--s-1) var(--s-3);
+  border-radius: var(--r-sm);
+  background: var(--text);
+  color: var(--bg);
+  content: attr(data-etiqueta);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t-fast) var(--ease);
+  white-space: nowrap;
+}
+
+.barra-lateral--riel .barra-lateral-enlace:hover::after,
+.barra-lateral--riel .barra-lateral-enlace:focus-visible::after {
+  opacity: 1;
+}

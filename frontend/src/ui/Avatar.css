@@ -1,0 +1,11 @@
+.ui-avatar {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}

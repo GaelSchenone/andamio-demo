@@ -1,0 +1,75 @@
+# Construye la imagen Docker de Andamio en GitHub y la publica en GHCR (ghcr.io/<dueño>/andamio).
+# Dokploy no construye: solo descarga la imagen ya hecha. Se hace así porque los contenedores de build del
+# servidor de Dokploy no resuelven DNS (no pueden bajar paquetes de PyPI ni de npm). Ver docs/stack.md.
+#
+# - En un PR: construye para amd64 sin publicar (sirve para verificar que el Dockerfile compila).
+# - En main: construye para amd64 y arm64, publica `latest` y `sha-<commit>`, y avisa a Dokploy para que redeploye.
+name: Imagen Docker
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: imagen-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  imagen:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      PUBLICAR: ${{ github.event_name != 'pull_request' }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # QEMU solo hace falta para la parte de Python en arm64; el frontend se compila nativo (ver Dockerfile).
+      - uses: docker/setup-qemu-action@v4
+        if: env.PUBLICAR == 'true'
+
+      - uses: docker/setup-buildx-action@v4
+
+      - uses: docker/login-action@v4
+        if: env.PUBLICAR == 'true'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha
+
+      - uses: docker/build-push-action@v7
+        with:
+          context: .
+          platforms: ${{ env.PUBLICAR == 'true' && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
+          push: ${{ env.PUBLICAR == 'true' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # El webhook de deploy de Dokploy es un secreto del repo (Settings → Secrets → Actions).
+      # Si no está cargado, la imagen queda publicada igual y el redeploy se hace a mano.
+      - name: Avisar a Dokploy
+        if: github.ref == 'refs/heads/main' && env.PUBLICAR == 'true'
+        env:
+          WEBHOOK: ${{ secrets.DOKPLOY_DEPLOY_WEBHOOK }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then
+            echo "::warning::Falta el secreto DOKPLOY_DEPLOY_WEBHOOK: redeployá a mano en Dokploy."
+            exit 0
+          fi
+          curl --fail --silent --show-error --max-time 30 -o /dev/null \
+            -X POST -H 'Content-Type: application/json' -d '{}' "$WEBHOOK"

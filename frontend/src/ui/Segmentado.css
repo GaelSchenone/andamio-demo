@@ -1,0 +1,27 @@
+.ui-segmentado {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+}
+
+.ui-segmentado button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: calc(var(--hit) - 8px);
+  padding: 0 var(--s-4);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+/* Elegido: relleno de alto contraste + peso; no depende del color. */
+.ui-segmentado button.is-activo {
+  background: var(--text);
+  color: var(--bg);
+}

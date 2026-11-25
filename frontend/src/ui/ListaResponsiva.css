@@ -1,0 +1,114 @@
+/* El botón principal se estira sobre toda la fila/tarjeta: se puede tocar en cualquier parte. */
+.ui-lista-abrir {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-weight: 600;
+  text-align: left;
+}
+
+.ui-lista-abrir::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.ui-lista-abrir:focus-visible {
+  outline: none;
+}
+
+.ui-lista-abrir:focus-visible::after {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+  border-radius: var(--r-sm);
+}
+
+/* Tabla (≥ 720 px) */
+.ui-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.ui-tabla th {
+  padding: var(--s-2) var(--s-3);
+  border-bottom: 1px solid var(--border-strong);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.ui-tabla td {
+  padding: var(--s-3);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.ui-tabla tbody tr {
+  position: relative;
+}
+
+.ui-tabla tbody tr:hover {
+  background: var(--surface-2);
+}
+
+.ui-tabla tr.is-elegida {
+  background: var(--surface-2);
+  box-shadow: inset 4px 0 0 var(--text);
+}
+
+.es-der {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Tarjetas (< 720 px) */
+.ui-tarjetas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ui-tarjeta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.ui-tarjeta.is-elegida {
+  border-color: var(--text);
+}
+
+.ui-tarjeta-titulo {
+  font-size: var(--fs-md);
+}
+
+.ui-tarjeta-datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  margin: 0;
+}
+
+.ui-tarjeta-datos dt {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+}
+
+.ui-tarjeta-datos dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+}

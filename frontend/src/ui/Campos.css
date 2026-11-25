@@ -1,0 +1,69 @@
+.ui-campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.ui-campo-etiqueta {
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.ui-campo-opcional {
+  color: var(--text-3);
+  font-weight: 400;
+}
+
+.ui-control {
+  width: 100%;
+  min-height: var(--hit);
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-md);
+  line-height: 1.4;
+}
+
+@media (pointer: fine) {
+  .ui-control {
+    min-height: 40px;
+    font-size: var(--fs-sm);
+  }
+}
+
+textarea.ui-control {
+  resize: vertical;
+}
+
+.ui-control::placeholder {
+  color: var(--text-3);
+}
+
+.ui-control:focus-visible {
+  outline-offset: 0;
+  border-color: var(--focus);
+}
+
+.ui-control:disabled {
+  background: var(--surface-2);
+  color: var(--text-3);
+  cursor: not-allowed;
+}
+
+.ui-campo--error .ui-control {
+  border-color: var(--bad);
+}
+
+.ui-campo-ayuda {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+}
+
+.ui-campo-mensaje {
+  color: var(--bad);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}

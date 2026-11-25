@@ -1,0 +1,53 @@
+.maestro-detalle {
+  display: grid;
+  align-items: start;
+  gap: var(--s-5);
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 26rem);
+}
+
+.maestro-detalle-lista {
+  min-width: 0;
+}
+
+/* El panel no lleva fondo ni borde: así no marca una división desalineada con el contenido. */
+.maestro-detalle-panel {
+  position: sticky;
+  top: calc(var(--topbar-h) + var(--s-4));
+  max-height: calc(100dvh - var(--topbar-h) - var(--s-6));
+  overflow-y: auto;
+}
+
+/* Pantalla que no scrollea: ocupa el alto disponible y el panel scrollea por dentro. */
+.maestro-detalle--fijo {
+  height: 100%;
+  min-height: 34rem;
+  align-items: stretch;
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.maestro-detalle--fijo .maestro-detalle-lista {
+  min-height: 0;
+}
+
+.maestro-detalle--fijo .maestro-detalle-panel {
+  position: static;
+  min-height: 0;
+  max-height: none;
+}
+
+.shell-contenido:has(.maestro-detalle--fijo) {
+  height: calc(100dvh - var(--topbar-h));
+  padding-bottom: var(--s-5);
+  overflow: auto;
+}
+
+.maestro-detalle-pagina {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-4);
+}
+
+.maestro-detalle-pagina > :last-child {
+  width: 100%;
+}

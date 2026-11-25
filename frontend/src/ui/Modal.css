@@ -1,0 +1,163 @@
+/* Compacta (< 720 px): hoja que sube desde abajo. Desde 720 px: diálogo centrado. */
+
+.ui-modal-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: var(--scrim);
+}
+
+@media (prefers-reduced-transparency: no-preference) {
+  .ui-modal-fondo {
+    backdrop-filter: blur(2px);
+  }
+}
+
+.ui-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 90dvh;
+  border: 1px solid var(--border);
+  border-bottom: 0;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  background: var(--surface);
+  box-shadow: var(--shadow-modal);
+  outline: none;
+}
+
+.ui-modal-manija {
+  display: grid;
+  place-items: center;
+  height: 28px;
+  flex-shrink: 0;
+  touch-action: none;
+  cursor: grab;
+}
+
+.ui-modal-manija::before {
+  content: '';
+  width: 40px;
+  height: 4px;
+  border-radius: var(--r-pill);
+  background: var(--border-strong);
+}
+
+.ui-modal-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: 0 var(--s-2) var(--s-2) var(--s-4);
+  flex-shrink: 0;
+}
+
+.ui-modal-titulo {
+  font-family: var(--font-body);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.ui-modal-cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-2) var(--s-4) var(--s-4);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.ui-modal-descripcion {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.ui-modal-pie {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4) calc(var(--s-3) + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--border);
+}
+
+/* En la hoja de celular los botones ocupan el ancho: más fáciles de tocar con el pulgar. */
+.ui-modal-pie > * {
+  flex: 1 1 auto;
+}
+
+@media (min-width: 720px) {
+  .ui-modal-fondo {
+    align-items: center;
+    padding: var(--s-5);
+  }
+
+  .ui-modal {
+    max-height: min(90dvh, 760px);
+    border-bottom: 1px solid var(--border);
+    border-radius: var(--r-lg);
+  }
+
+  .ui-modal--sm {
+    max-width: 420px;
+  }
+  .ui-modal--md {
+    max-width: 560px;
+  }
+  .ui-modal--lg {
+    max-width: 720px;
+  }
+
+  .ui-modal-manija {
+    display: none;
+  }
+
+  .ui-modal-cab {
+    padding-top: var(--s-3);
+  }
+
+  .ui-modal-pie > * {
+    flex: 0 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ui-modal-fondo {
+    animation: ui-fondo-entra var(--t-mid) var(--ease);
+  }
+
+  .ui-modal {
+    animation: ui-hoja-sube var(--t-slow) var(--ease);
+    transition: transform var(--t-mid) var(--ease);
+  }
+
+  @media (min-width: 720px) {
+    .ui-modal {
+      animation-name: ui-dialogo-aparece;
+    }
+  }
+}
+
+@keyframes ui-fondo-entra {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes ui-hoja-sube {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes ui-dialogo-aparece {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}

@@ -1,0 +1,8 @@
+.orbe {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--orbe-fondo);
+}

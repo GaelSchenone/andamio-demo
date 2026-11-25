@@ -1,0 +1,23 @@
+.cabecera-pagina {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+
+.cabecera-pagina h1 {
+  font-size: var(--fs-2xl);
+}
+
+.cabecera-pagina p {
+  margin-top: var(--s-1);
+  color: var(--text-2);
+}
+
+.cabecera-pagina-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}

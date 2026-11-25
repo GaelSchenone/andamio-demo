@@ -1,0 +1,32 @@
+.ui-tabs {
+  display: flex;
+  gap: var(--s-1);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ui-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.ui-tabs button {
+  flex-shrink: 0;
+  min-height: var(--hit);
+  padding: 0 var(--s-4);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.ui-tabs button:hover {
+  color: var(--text);
+}
+
+.ui-tabs button.is-activa {
+  border-bottom-color: var(--text);
+  color: var(--text);
+}

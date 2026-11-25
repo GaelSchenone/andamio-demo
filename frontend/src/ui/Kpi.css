@@ -1,0 +1,42 @@
+.ui-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  min-width: 0;
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--text);
+  text-align: left;
+}
+
+.ui-kpi--accion:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+}
+
+.ui-kpi-etiqueta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.ui-kpi-valor {
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 6.5vw, var(--fs-kpi));
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ui-kpi-ayuda {
+  color: var(--text-3);
+  font-size: var(--fs-xs);
+}

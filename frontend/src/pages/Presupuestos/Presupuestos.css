@@ -1,0 +1,84 @@
+.presupuestos-buscar {
+  margin-bottom: var(--s-4);
+}
+
+.presupuestos-estados {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+}
+
+.presupuesto-detalle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.presupuesto-encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.presupuesto-encabezado h2 {
+  font-size: var(--fs-2xl);
+}
+
+.presupuesto-numero,
+.presupuesto-sub {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.presupuesto-detalle h3 {
+  margin-bottom: var(--s-2);
+  font-size: var(--fs-xl);
+}
+
+.presupuesto-items {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  list-style: none;
+}
+
+.presupuesto-items li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.presupuesto-items small {
+  display: block;
+  color: var(--text-2);
+}
+
+.presupuesto-items strong,
+.presupuesto-total strong {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.presupuesto-total {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--s-3) 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+}
+
+.presupuesto-estado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--s-3);
+}
+
+.presupuesto-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}

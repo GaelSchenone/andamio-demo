@@ -1,0 +1,200 @@
+.trabajos-controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--s-3);
+}
+
+.trabajos-controles .ui-campo {
+  min-width: 12rem;
+}
+
+/* Calendario a pantalla completa: la grilla se reparte el alto que queda y no hay scroll de página. */
+.trabajos-pagina--fija {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.trabajos-pagina--fija .cabecera-pagina {
+  margin-bottom: var(--s-3);
+}
+
+.trabajos-pagina--fija .calendario {
+  min-height: 0;
+  flex: 1;
+  gap: var(--s-3);
+}
+
+.trabajos-pagina--fija .calendario-grilla {
+  min-height: 0;
+  flex: 1;
+  grid-template-rows: auto;
+  grid-auto-rows: minmax(0, 1fr);
+}
+
+.trabajos-pagina--fija .calendario-celda {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.trabajos-panel-con-barra {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.trabajos-panel-contenido {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.trabajos-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.trabajos-fila {
+  display: grid;
+  gap: var(--s-3);
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+}
+
+.trabajos-nota {
+  padding: var(--s-3);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.trabajos-historial {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  list-style: none;
+}
+
+.trabajos-historial li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.trabajos-historial small {
+  color: var(--text-2);
+}
+
+.trabajo-detalle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.trabajo-encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.trabajo-encabezado h2 {
+  font-size: var(--fs-2xl);
+}
+
+.trabajo-estado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.trabajo-bloque {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.trabajo-bloque h3 {
+  font-size: var(--fs-xl);
+}
+
+.trabajo-sub {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.trabajo-tareas {
+  margin: 0;
+  padding-left: var(--s-5);
+}
+
+.trabajo-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.trabajos-lista-fecha {
+  white-space: nowrap;
+}
+
+.trabajos-detalle-lateral {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-4);
+}
+
+.trabajos-detalle-lateral > :last-child {
+  width: 100%;
+}
+
+.trabajos-lateral h2 {
+  margin-bottom: var(--s-3);
+  font-size: var(--fs-xl);
+}
+
+.trabajos-lateral ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  list-style: none;
+}
+
+.trabajos-lateral button {
+  display: flex;
+  width: 100%;
+  min-height: var(--hit);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  text-align: left;
+}
+
+.trabajos-lateral button:hover {
+  background: var(--surface-2);
+}
+
+.trabajos-lateral small {
+  display: block;
+  color: var(--text-2);
+}
+
+.trabajos-lateral h2::first-letter {
+  text-transform: uppercase;
+}
+
+.trabajos-lateral > .ui-btn {
+  margin-bottom: var(--s-3);
+}

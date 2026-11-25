@@ -1,0 +1,66 @@
+.ui-avisos {
+  position: fixed;
+  right: var(--s-4);
+  bottom: calc(var(--s-4) + env(safe-area-inset-bottom, 0px));
+  left: var(--s-4);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  align-items: stretch;
+  pointer-events: none;
+}
+
+/* En celular los avisos quedan sobre la barra inferior de navegación, no tapándola. */
+@media (max-width: 719px) {
+  .ui-avisos {
+    bottom: calc(var(--tabbar-h) + var(--s-3) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (min-width: 720px) {
+  .ui-avisos {
+    left: auto;
+    width: 380px;
+  }
+}
+
+.ui-aviso {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-2) var(--s-2) var(--s-2) var(--s-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-modal);
+  font-size: var(--fs-sm);
+  pointer-events: auto;
+}
+
+.ui-aviso p {
+  flex: 1;
+}
+
+.ui-aviso--ok svg {
+  color: var(--ok);
+}
+
+.ui-aviso--peligro {
+  border-color: var(--bad);
+  background: var(--bad-bg);
+  color: var(--bad);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ui-aviso {
+    animation: ui-aviso-entra var(--t-slow) var(--ease);
+  }
+}
+
+@keyframes ui-aviso-entra {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}

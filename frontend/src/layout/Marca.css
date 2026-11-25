@@ -1,0 +1,19 @@
+.marca {
+  display: block;
+  flex: none;
+  background: currentColor;
+  -webkit-mask: center / contain no-repeat;
+  mask: center / contain no-repeat;
+}
+
+.marca--completa {
+  aspect-ratio: 1;
+  -webkit-mask-image: url('/logo-full.svg');
+  mask-image: url('/logo-full.svg');
+}
+
+.marca--icono {
+  aspect-ratio: 1;
+  -webkit-mask-image: url('/logo-icon.svg');
+  mask-image: url('/logo-icon.svg');
+}

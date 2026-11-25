@@ -1,0 +1,29 @@
+.ui-icon-btn {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: var(--hit);
+  height: var(--hit);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-2);
+  transition: background var(--t-fast) var(--ease);
+}
+
+@media (pointer: fine) {
+  .ui-icon-btn {
+    width: var(--hit-fine);
+    height: var(--hit-fine);
+  }
+}
+
+.ui-icon-btn:hover:not(:disabled) {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.ui-icon-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

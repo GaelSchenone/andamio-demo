@@ -1,0 +1,53 @@
+[project]
+name = "presupuestos-backend"
+version = "0.1.0"
+description = "Backend de Obras Demo para generar presupuestos en PDF"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.20.1",
+    "argon2-cffi>=25.1.0",
+    "fastapi>=0.141.1",
+    "google-genai>=2.33.0",
+    "httpx>=0.28.1",
+    "psycopg[binary]>=3.3.5",
+    "python-dotenv>=1.2.3",
+    "reportlab>=5.0.1",
+    "sqlalchemy>=2.0.52",
+    "uvicorn[standard]>=0.52.4",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.6,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.16.6",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+# B008: FastAPI's Depends(...) in argument defaults is the intended idiom.
+ignore = ["B008"]
+
+[tool.ruff.lint.per-file-ignores]
+# Datos de ejemplo y SQL largos en los tests.
+"tests/*" = ["E501"]
+# Texto de la guía y las instrucciones del agente: son párrafos para el modelo, no código.
+"src/presupuestos_backend/agente_guia.py" = ["E501"]
+
+[tool.ruff.lint.isort]
+# La carpeta local "alembic/" (las migraciones) no debe confundirse con la librería alembic.
+known-third-party = ["alembic"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = [
+    # SQLite (solo en desarrollo y tests) avisa que no maneja Decimal de forma nativa; en Postgres no.
+    "ignore:Dialect sqlite.*Decimal:sqlalchemy.exc.SAWarning",
+]

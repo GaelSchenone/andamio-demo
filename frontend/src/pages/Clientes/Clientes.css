@@ -1,0 +1,86 @@
+.clientes-buscar {
+  margin-bottom: var(--s-4);
+}
+
+.clientes-cargando {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.cliente-detalle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.cliente-encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.cliente-encabezado h2 {
+  font-size: var(--fs-2xl);
+}
+
+.cliente-acciones,
+.obra-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.cliente-notas {
+  padding: var(--s-3);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.cliente-enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.obras-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.obras-titulo h3 {
+  font-size: var(--fs-xl);
+}
+
+.obras-lista {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: var(--s-3);
+  list-style: none;
+}
+
+.obra {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+}
+
+.obra-referencia {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.form-columnas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}

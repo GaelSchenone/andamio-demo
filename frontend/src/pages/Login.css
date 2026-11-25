@@ -1,0 +1,65 @@
+.login {
+  display: grid;
+  min-height: 100dvh;
+}
+
+@media (min-width: 1024px) {
+  .login {
+    grid-template-columns: 1fr minmax(28rem, 36rem);
+  }
+}
+
+.login-marca {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--s-5);
+  padding: var(--s-7);
+  background: var(--surface-2);
+}
+
+.login-marca p {
+  max-width: 24rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+/* La cinta de obra: la firma de la identidad. */
+.login-cinta {
+  position: absolute;
+  right: 0;
+  bottom: var(--s-7);
+  left: 0;
+  height: 14px;
+  background: repeating-linear-gradient(-45deg, var(--accent) 0 18px, var(--text) 18px 36px);
+}
+
+.login-form-lado {
+  display: grid;
+  place-items: center;
+  padding: var(--s-5) var(--s-4);
+}
+
+.login-form {
+  display: flex;
+  width: 100%;
+  max-width: 24rem;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.login-form h1 {
+  font-size: var(--fs-2xl);
+}
+
+.login-sub {
+  margin-top: calc(var(--s-3) * -1);
+  color: var(--text-2);
+}
+
+.login-logo {
+  margin-bottom: var(--s-3);
+}

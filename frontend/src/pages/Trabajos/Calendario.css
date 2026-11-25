@@ -1,0 +1,243 @@
+.calendario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.calendario-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.calendario-titulo {
+  min-width: 10rem;
+  font-size: var(--fs-xl);
+  text-align: center;
+}
+
+.calendario-titulo::first-letter {
+  text-transform: uppercase;
+}
+
+.calendario-grilla {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--border);
+  gap: 1px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.calendario-dia-semana {
+  padding: var(--s-2) 0;
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-align: center;
+}
+
+.calendario-celda {
+  display: flex;
+  min-height: 3.25rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-1);
+  padding: var(--s-1);
+  border: 0;
+  background: var(--surface);
+  text-align: left;
+}
+
+.calendario-celda:hover {
+  background: var(--surface-2);
+}
+
+.calendario-celda.es-finde {
+  background: var(--bg);
+}
+
+.calendario-celda.es-otro-mes {
+  color: var(--text-3);
+}
+
+.calendario-numero {
+  display: grid;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  place-items: center;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+/* El día de hoy lleva la cinta (amarillo + texto oscuro, 11:1); el elegido, un borde interior. */
+.calendario-celda.es-hoy .calendario-numero {
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+}
+
+.calendario-celda.es-elegido {
+  outline: 2px solid var(--text);
+  outline-offset: -2px;
+}
+
+.calendario-puntos {
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.calendario-chips {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.calendario-chip {
+  overflow: hidden;
+  padding: 1px var(--s-1);
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendario-chip.estado-en_curso {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+
+.calendario-chip.estado-agendado {
+  background: var(--info-bg);
+  color: var(--info);
+}
+
+.calendario-chip.estado-terminado,
+.calendario-chip.estado-cobrado {
+  color: var(--text-2);
+}
+
+.calendario-chip.estado-cancelado {
+  color: var(--text-3);
+  text-decoration: line-through;
+}
+
+.calendario-mas {
+  color: var(--text-2);
+  font-size: var(--fs-xs);
+}
+
+@media (min-width: 720px) {
+  .calendario-celda {
+    min-height: 6rem;
+    padding: var(--s-2);
+  }
+
+  .calendario-chips {
+    display: flex;
+  }
+
+  .calendario-puntos {
+    display: none;
+  }
+}
+
+.calendario-dia h3 {
+  margin-bottom: var(--s-3);
+  font-size: var(--fs-xl);
+}
+
+.calendario-dia-lista {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  gap: var(--s-2);
+  list-style: none;
+}
+
+.calendario-dia-lista button {
+  display: flex;
+  width: 100%;
+  min-height: var(--hit);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  text-align: left;
+}
+
+.calendario-dia-lista button[aria-current='true'] {
+  border-color: var(--text);
+  background: var(--surface-2);
+}
+
+.calendario-dia-lista small {
+  display: block;
+  color: var(--text-2);
+}
+
+/* Vista de semana: los 7 días en una fila alta, con todos los trabajos de cada día a la vista. */
+.calendario-grilla.es-semana .calendario-celda {
+  min-height: 11rem;
+}
+
+.calendario-grilla.es-semana .calendario-chips {
+  display: flex;
+}
+
+.calendario-grilla.es-semana .calendario-puntos {
+  display: none;
+}
+
+.calendario-grilla.es-semana .calendario-chip {
+  white-space: normal;
+}
+
+@media (max-width: 719px) {
+  .calendario-grilla.es-semana .calendario-celda {
+    min-height: 6rem;
+  }
+
+  .calendario-grilla.es-semana .calendario-chips {
+    display: none;
+  }
+
+  .calendario-grilla.es-semana .calendario-puntos {
+    display: block;
+  }
+}
+
+/* Los días que ocupa el trabajo abierto: base amarilla (la "cinta") y fondo apenas marcado. */
+.calendario-celda.es-del-trabajo {
+  background: var(--surface-2);
+  box-shadow: inset 0 -5px 0 var(--accent);
+}
+
+/* Agendando: los días elegidos llevan la cinta y un borde grueso (no dependen solo del color). */
+.calendario-celda.es-seleccionado {
+  background: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--text);
+  color: var(--on-accent);
+}
+
+.calendario-celda.es-seleccionado .calendario-numero {
+  background: var(--on-accent);
+  color: var(--accent);
+}
+
+.calendario-celda.es-no-elegible {
+  background: repeating-linear-gradient(-45deg, var(--surface-2) 0 6px, var(--border) 6px 8px);
+  cursor: not-allowed;
+}

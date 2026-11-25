@@ -1,0 +1,62 @@
+.ui-buscador {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.ui-buscador input {
+  width: 100%;
+  min-height: var(--hit);
+  padding: 0 calc(var(--hit) - var(--s-1)) 0 calc(var(--s-3) + 26px);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-md);
+}
+
+@media (pointer: fine) {
+  .ui-buscador input {
+    min-height: 40px;
+    font-size: var(--fs-sm);
+  }
+}
+
+.ui-buscador input::placeholder {
+  color: var(--text-3);
+}
+
+.ui-buscador input:focus-visible {
+  outline-offset: 0;
+  border-color: var(--focus);
+}
+
+/* Se quita la "x" que dibuja el navegador: ya tenemos la nuestra, con nombre accesible. */
+.ui-buscador input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.ui-buscador-lupa {
+  position: absolute;
+  left: var(--s-3);
+  color: var(--text-3);
+  pointer-events: none;
+}
+
+.ui-buscador-limpiar {
+  position: absolute;
+  right: var(--s-1);
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--text-2);
+}
+
+.ui-buscador-limpiar:hover {
+  background: var(--surface-2);
+}

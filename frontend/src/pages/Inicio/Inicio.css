@@ -1,0 +1,124 @@
+.inicio-saludo {
+  margin-bottom: var(--s-5);
+}
+
+.inicio-saludo h1 {
+  font-size: var(--fs-2xl);
+}
+
+.inicio-saludo p {
+  color: var(--text-2);
+}
+
+.inicio-saludo p::first-letter {
+  text-transform: uppercase;
+}
+
+.inicio-kpis {
+  display: grid;
+  gap: var(--s-3);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: var(--s-5);
+}
+
+@media (min-width: 1024px) {
+  .inicio-kpis {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+}
+
+.inicio-columnas {
+  display: grid;
+  align-items: start;
+  gap: var(--s-4);
+}
+
+@media (min-width: 1024px) {
+  .inicio-columnas {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+  }
+
+  .inicio-columnas--una {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.inicio-principal,
+.inicio-lateral {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.inicio-trabajos,
+.inicio-cobros {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  list-style: none;
+}
+
+.inicio-trabajos li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.inicio-trabajos li:last-child,
+.inicio-cobros li:last-child {
+  border-bottom: 0;
+}
+
+.inicio-trabajo-datos {
+  display: flex;
+  min-width: 12rem;
+  flex: 1;
+  flex-direction: column;
+}
+
+.inicio-trabajo-datos a {
+  text-decoration: none;
+}
+
+.inicio-trabajo-datos a:hover {
+  text-decoration: underline;
+}
+
+.inicio-trabajo-datos span {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.inicio-trabajo-acciones {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.inicio-cobros li {
+  border-bottom: 1px solid var(--border);
+}
+
+.inicio-cobros a {
+  display: flex;
+  min-height: var(--hit);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  text-decoration: none;
+}
+
+.inicio-cobros small {
+  display: block;
+  color: var(--text-2);
+}
+
+.inicio-cobro-monto {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}

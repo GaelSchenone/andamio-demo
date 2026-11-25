@@ -1,0 +1,72 @@
+.menu-usuario {
+  position: relative;
+}
+
+.menu-usuario-boton {
+  display: grid;
+  place-items: center;
+  min-width: var(--hit);
+  min-height: var(--hit);
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+}
+
+.menu-usuario-panel {
+  position: absolute;
+  top: calc(100% + var(--s-2));
+  right: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  min-width: 15rem;
+  flex-direction: column;
+  padding: var(--s-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-modal);
+  animation: menu-entra var(--t-mid) var(--ease);
+}
+
+.menu-usuario-quien {
+  display: flex;
+  flex-direction: column;
+  padding: var(--s-2) var(--s-3) var(--s-3);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--s-2);
+}
+
+.menu-usuario-quien span {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.menu-usuario-panel button {
+  display: flex;
+  min-height: var(--hit);
+  align-items: center;
+  gap: var(--s-3);
+  padding: 0 var(--s-3);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  text-align: left;
+}
+
+.menu-usuario-panel button:hover {
+  background: var(--surface-2);
+}
+
+@keyframes menu-entra {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-usuario-panel {
+    animation: none;
+  }
+}

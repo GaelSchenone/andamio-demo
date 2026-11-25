@@ -1,0 +1,59 @@
+.ajustes-panel {
+  display: flex;
+  max-width: 44rem;
+  flex-direction: column;
+  gap: var(--s-4);
+  margin-top: var(--s-4);
+}
+
+.ajustes-datos {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.ajustes-datos p {
+  color: var(--text-2);
+}
+
+.ajustes-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.usuarios-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.usuarios-fila:last-child {
+  border-bottom: 0;
+}
+
+.usuarios-quien {
+  display: flex;
+  min-width: 10rem;
+  flex: 1;
+  flex-direction: column;
+}
+
+.usuarios-quien span {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.usuarios-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.ajustes-ayuda {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}

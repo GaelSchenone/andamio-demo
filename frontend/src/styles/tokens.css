@@ -1,0 +1,123 @@
+/* Tokens de diseño de Andamio. ÚNICO lugar donde se escriben colores: el resto de los .css usa
+   var(--...). Un test (tokens.test.js) falla si aparece un color suelto en otro archivo y también
+   si algún par de colores de texto baja de 4.5:1 (o de 3:1 en bordes de controles).
+
+   Claro y oscuro siguen la preferencia del sistema; no hay selector propio en la app.
+   El amarillo ("cinta de obra") es la firma: solo botón primario, sección activa y el día de hoy. */
+
+:root {
+  /* Orbe del ayudante: disco negro con puntos claros, igual en los dos temas. */
+  --orbe-fondo: #0a0a09;
+  --orbe-punto: #f4f3ef;
+
+  color-scheme: light dark;
+
+  /* Superficies */
+  --bg: #f4f3ef;
+  --surface: #ffffff;
+  --surface-2: #eceae4;
+  --border: #d9d6ce;
+  --border-strong: #8a867b; /* borde de controles: 3.64:1 sobre --surface */
+
+  /* Texto */
+  --text: #141412;
+  --text-2: #4f4d47;
+  --text-3: #66635b;
+
+  /* Acento: cinta de obra */
+  --accent: #f5c400;
+  --on-accent: #141412;
+
+  /* Estados: texto y fondo suave */
+  --ok: #176b3a;
+  --ok-bg: #e3f3e9;
+  --warn: #7a4b00;
+  --warn-bg: #fcefc9;
+  --bad: #a8201a;
+  --bad-bg: #fbe4e2;
+  --info: #1b4fa8;
+  --info-bg: #e1ebfa;
+
+  --focus: var(--text);
+  --scrim: rgb(20 20 18 / 0.5);
+  --shadow-modal: 0 24px 48px -24px rgb(0 0 0 / 0.35);
+
+  /* Tipografía */
+  --font-body: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--font-body); /* títulos y números grandes: también Inter, en negrita */
+  --fs-xs: 0.75rem; /* mínimo: 12 px */
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.375rem;
+  --fs-2xl: 2rem;
+  --fs-kpi: 1.75rem;
+
+  /* Espaciado (base 4 px), radios y movimiento */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 120ms;
+  --t-mid: 200ms;
+  --t-slow: 260ms;
+
+  /* Layout y tamaños táctiles */
+  --sidebar-w: 240px;
+  --rail-w: 72px;
+  --tabbar-h: 3.5rem;
+  --topbar-h: 3.5rem;
+  --content-max: 1440px;
+  --hit: 44px; /* objetivo táctil */
+  --hit-fine: 32px; /* objetivo con puntero */
+
+  --z-sticky: 20;
+  --z-nav: 30;
+  --z-modal: 100;
+  --z-toast: 110;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f0f0e;
+    --surface: #181817;
+    --surface-2: #222220;
+    --border: #2e2e2b;
+    --border-strong: #77746c; /* 3.81:1 sobre --surface */
+
+    --text: #f4f3ef;
+    --text-2: #bdbbb3;
+    --text-3: #9a978e;
+
+    --accent: #ffd21f;
+    --on-accent: #141412;
+
+    --ok: #7bdda0;
+    --ok-bg: #14301f;
+    --warn: #f5c66b;
+    --warn-bg: #3a2c0a;
+    --bad: #ff9a92;
+    --bad-bg: #3d1614;
+    --info: #9cc1ff;
+    --info-bg: #14284a;
+
+    --scrim: rgb(0 0 0 / 0.6);
+    --shadow-modal: 0 24px 48px -24px rgb(0 0 0 / 0.7);
+  }
+}
+
+/* Contraste aumentado: bordes y texto terciario más marcados. */
+@media (prefers-contrast: more) {
+  :root {
+    --border: var(--border-strong);
+    --text-3: var(--text-2);
+  }
+}
